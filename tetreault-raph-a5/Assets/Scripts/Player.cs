@@ -3,32 +3,26 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float speed = 3;
+    [SerializeField] private float thrust = 3;
+    [SerializeField] private float rotationSpeed = 360;
+    [SerializeField] private Rigidbody2D rb2d;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log("Hello, World!");
+
     }
 
-    // Update is called once per frame
-    void Update()
+    // Update is called once per physics frame
+    void FixedUpdate()
     {
-        Vector3 movement = Vector3.zero;
+        float rotationAngle = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;    
+        rb2d.MoveRotation(rotationAngle + transform.rotation.eulerAngles.z);
 
-        if (Input.GetKey(KeyCode.DownArrow))
-            movement += Vector3.down;
-
-        if (Input.GetKey(KeyCode.UpArrow))
-            movement += Vector3.up;
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-            movement += Vector3.left;
-
-        if (Input.GetKey(KeyCode.RightArrow))
-            movement += Vector3.right;
-
-        // Add movement to player scaled by time
-        transform.position += movement * Time.deltaTime * speed;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Vector2 thrustForce = transform.up * thrust;
+            rb2d.AddForce(thrustForce);
+        }
     }
 }
