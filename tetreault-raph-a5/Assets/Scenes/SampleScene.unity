@@ -803,8 +803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bfa6102fcfff943afdd71141807dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minForce: 1
-  maxForce: 5
+  minSpeed: 1
+  maxSpeed: 5
 --- !u!1 &895790291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1096,7 @@ MonoBehaviour:
   rb2d: {fileID: 1488479876}
   lives: 3
   bulletPrefab: {fileID: 3253527459566806113, guid: 171f4db3aeaf35b41a6cea4792978f7b, type: 3}
-  bulletSpeed: 3
+  bulletSpeed: 8
 --- !u!60 &1488479875
 PolygonCollider2D:
   m_ObjectHideFlags: 0
