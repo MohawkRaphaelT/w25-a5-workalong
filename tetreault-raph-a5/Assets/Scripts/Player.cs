@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float thrust = 3;
     [SerializeField] private float rotationSpeed = 360;
     [SerializeField] private float bulletSpeed = 3;
+    [SerializeField] private float bulletLifetime = 1;
     [SerializeField] private Rigidbody2D rb2d;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameManager gameManager;
@@ -28,6 +29,9 @@ public class Player : MonoBehaviour
             // Shoot bullet in facing direction
             Vector2 force = transform.up * bulletSpeed;
             bulletRB2D.AddForce(force, ForceMode2D.Impulse);
+
+            // Destroy bullet after this much time
+            Destroy(bullet, bulletLifetime);
         }
     }
 
