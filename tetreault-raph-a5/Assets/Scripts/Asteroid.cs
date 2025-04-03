@@ -7,22 +7,27 @@ public class Asteroid : MonoBehaviour
     public float maxSpeed = 5;
     public int subdivisionLevel = 0;
     public GameObject[] asteroids;
+    public bool RandomizeStartVelocity = true;
 
     void Start()
     {
-        // Create random point on unit circle
-        float randomAngle = Random.Range(0, Mathf.PI * 2);
-        Vector2 direction = new(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle));
-        // Create force vector
-        float speed = Random.Range(minSpeed, maxSpeed);
-        Vector2 force = direction * speed;
+        if (RandomizeStartVelocity)
+        {
+            // Create random point on unit circle
+            float randomAngle = Random.Range(0, Mathf.PI * 2);
+            Vector2 direction = new(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle));
+            // Create force vector
+            float speed = Random.Range(minSpeed, maxSpeed);
+            Vector2 force = direction * speed;
 
-        // Apply force all at once (impulse)
-        rb2d.AddForce(force, ForceMode2D.Impulse);
+            // Apply force all at once (impulse)
+            rb2d.AddForce(force, ForceMode2D.Impulse);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider2D)
     {
+        // Don't run code past this check if not a bullet
         bool isBullet = collider2D.gameObject.CompareTag("Bullet");
         if (!isBullet)
             return;
@@ -47,9 +52,25 @@ public class Asteroid : MonoBehaviour
             }
         }
 
+        // Add score
+        GameObject.Find("GameManager").GetComponent<GameManager>().AddScore();
+
         // Destroy bullet, then this asteroid
         Destroy(collider2D.gameObject);
         Destroy(this.gameObject);
+    }
+
+    public void MoveTowardsCentre()
+    {
+        // Create random point on unit circle
+        Vector3 target = Random.insideUnitCircle * 5;
+        // Get direction to raomish point in centre
+        Vector3 direction = (target - transform.position).normalized;
+        float speed = Random.Range(minSpeed, maxSpeed);
+        Vector2 force = direction * speed;
+        // Apply force
+        rb2d.linearVelocity = Vector2.zero;
+        rb2d.AddForce(force, ForceMode2D.Impulse);
     }
 
 }

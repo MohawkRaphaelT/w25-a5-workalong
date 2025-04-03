@@ -5,10 +5,10 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float thrust = 3;
     [SerializeField] private float rotationSpeed = 360;
-    [SerializeField] private Rigidbody2D rb2d;
-    [SerializeField] private int lives = 3;
-    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed = 3;
+    [SerializeField] private Rigidbody2D rb2d;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameManager gameManager;
 
 
     private void Update()
@@ -58,11 +58,9 @@ public class Player : MonoBehaviour
             return;
 
         // Lose a life, handle case when lives run out
-        lives--;
-        if (lives == 0)
+        gameManager.RemoveLife();
+        if (gameManager.IsGameOver())
         {
-            // do other stuuf like game over text
-
             // Destroy player -- code stops running after this!
             Destroy(this.gameObject);
         }
