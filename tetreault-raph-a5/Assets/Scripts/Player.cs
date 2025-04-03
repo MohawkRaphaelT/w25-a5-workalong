@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        // Spawn bullet on mouse click
         int leftClickID = 0;
         if (Input.GetMouseButtonDown(leftClickID))
         {
@@ -51,14 +52,19 @@ public class Player : MonoBehaviour
         //if (asteroid == null)
         //    return;
 
+        // Don't run code past this check if not an asteroid
         bool isAsteroid = collider2D.gameObject.CompareTag("Asteroid");
         if (!isAsteroid)
             return;
 
+        // Lose a life, handle case when lives run out
         lives--;
         if (lives == 0)
         {
-            // do something
+            // do other stuuf like game over text
+
+            // Destroy player -- code stops running after this!
+            Destroy(this.gameObject);
         }
 
         // Reset player position
