@@ -16,7 +16,7 @@ public class Teleport : MonoBehaviour
     // Direction this trigger will teleport the object to
     public TeleportDirection direction;
 
-    private void OnTriggerEnter2D(Collider2D collider2D)
+    private void CheckCollision(Collider2D collider2D)
     {
         // Get rigidbody of moving object
         Rigidbody2D rb2d = collider2D.attachedRigidbody;
@@ -36,5 +36,15 @@ public class Teleport : MonoBehaviour
             // Move object using physics engine
             rb2d.MovePosition(newPosition);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider2D)
+    {
+        CheckCollision(collider2D);
+    }
+
+    private void OnTriggerStay2D(Collider2D collider2D)
+    {
+        CheckCollision(collider2D);
     }
 }

@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float thrust = 3;
     [SerializeField] private float rotationSpeed = 360;
+    [SerializeField] private float maxVelocity = 15;
     [SerializeField] private float bulletSpeed = 3;
     [SerializeField] private float bulletLifetime = 1;
     [SerializeField] private Rigidbody2D rb2d;
@@ -45,8 +46,13 @@ public class Player : MonoBehaviour
         // Add force to player
         if (Input.GetKey(KeyCode.Space))
         {
-            Vector2 thrustForce = transform.up * thrust;
-            rb2d.AddForce(thrustForce);
+            // Cap movement speed
+            bool canApplyVelocity = rb2d.linearVelocity.magnitude < maxVelocity;
+            if (canApplyVelocity)
+            {
+                Vector2 thrustForce = transform.up * thrust;
+                rb2d.AddForce(thrustForce);
+            }
         }
     }
 
