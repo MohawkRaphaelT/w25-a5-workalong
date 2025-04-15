@@ -1541,7 +1541,7 @@ GameObject:
   - component: {fileID: 1594747079}
   - component: {fileID: 1594747078}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: AsteroidSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2016,6 +2016,7 @@ MonoBehaviour:
   scoreDisplay: {fileID: 1647626005}
   livesDisplay: {fileID: 1464546995}
   gameOverDisplay: {fileID: 1403224366}
+  asteroidSpawner: {fileID: 1594747078}
 --- !u!4 &2107512089
 Transform:
   m_ObjectHideFlags: 0
