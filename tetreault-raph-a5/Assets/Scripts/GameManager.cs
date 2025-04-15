@@ -10,11 +10,13 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreDisplay;
     public TMP_Text livesDisplay;
     public TMP_Text gameOverDisplay;
+    public AsteroidSpawner asteroidSpawner;
 
     public void AddScore()
     {
         score++;
         UpdateScoreDisplay();
+        asteroidSpawner.CheckSpawnAsteroid(score);
     }
 
     public void RemoveLife()
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
         UpdateLivesDisplay();
         gameOverDisplay.enabled = false;
     }
+
     private void Update()
     {
         // Reload scene on game over with keypress
